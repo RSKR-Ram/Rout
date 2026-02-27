@@ -50,7 +50,8 @@
         .split(",")
         .map(s => s.trim())
         .filter(Boolean)
-        .filter(u => /^(https?:)?\\/\\//i.test(u) || /^https?:\\/\\//i.test(u));
+        // Accept: https://..., http://..., or scheme-relative //...
+        .filter(u => /^(https?:\/\/|\/\/)/i.test(u));
     }
 
     function openOrderFiles(csv) {
@@ -462,9 +463,6 @@
             timestamp={modalTs}
             onSubmitted={load}
           />
-
-          {/* Keep your existing viewOnly.js if you still need it (as in original). */}
-          <script src="https://ntwoods.github.io/ordertodispatch/js/viewOnly.js"></script>
         </div>
       );
     }
@@ -472,5 +470,9 @@
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<App />);
   </script>
+
+  <!-- Optional legacy helper (kept outside React render) -->
+  <script src="https://ntwoods.github.io/ordertodispatch/js/viewOnly.js"></script>
+
 </body>
 </html>
